@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from src.services import chat_service
 from src.config import database
+from typing import List
 
 router = APIRouter(prefix="/chats")
 

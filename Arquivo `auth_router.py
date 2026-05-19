@@ -2,8 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from src.schemas import auth, user
 from src.services import auth_service
 from src.config import database
+import jwt
 
 router = APIRouter(prefix="/auth")
+
+def create_access_token(data: dict):
+    return jwt.encode(data, "secret", algorithm="HS256")
 
 @router.post("/login", response_model=auth.Token)
 def login(login: auth.AuthLogin):
