@@ -1,12 +1,8 @@
 version: '3'
 services:
-  postgres:
-    image: postgres
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
     environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-  redis:
-    image: redis
-  dbgate:
-    image: dpg
+      - DATABASE_URL=sqlite:///./test.db
