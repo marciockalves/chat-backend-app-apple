@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Banco de dados principal para persistência de dados
+  postgres:
+    image: docker.io/library/postgres:16-alpine
+    container_name: chat_postgres
+    environment:
+      POSTGRES_USER: chat_admin
+      POSTGRES_PASSWORD: chat_password_2026
+      POSTGRES_DB: chat_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  # Redis para controle de presença (online/offline) e mensageria rápida (Pub/Sub)
+  redis:
+    image: docker.io/library/redis:7-alpine
+    container_name: chat_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+  # Interface Web Única para visualizar PostgreSQL e Redis juntos
+  dbgate:
+    image: docker.io/dbgate/dbgate:latest
+    container_name: chat_dbgate
+    ports:
+      - "8080:3000"
+    restart: always
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

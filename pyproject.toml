@@ -1,0 +1,17 @@
+[project]
+name = "chat-backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "alembic>=1.18.4",
+    "asyncpg>=0.31.0",
+    "fastapi>=0.136.1",
+    "passlib[bcrypt]>=1.7.4",
+    "pydantic-settings>=2.14.1",
+    "pyjwt[crypto]>=2.12.1",
+    "redis>=7.4.0",
+    "sqlmodel>=0.0.38",
+    "uvicorn[standard]>=0.47.0",
+]
