@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.config.settings import settings
 from src.config.database import get_session, get_redis
+from src.models import User, Chat, Message
 
 
 @asynccontextmanager
