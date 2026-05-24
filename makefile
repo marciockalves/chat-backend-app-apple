@@ -41,7 +41,7 @@ logs:
 
 # --- APLICAÇÃO & PACOTES ---
 run:
-	uv run uvicorn $(PYTHON_MODULE) --reload --host 0.0.0.0 --port 8000
+	uv run uvicorn src.main:app --reload --reload-exclude "alembic/*" --host 0.0.0.0 --port 8000
 
 sync:
 	uv sync
