@@ -18,8 +18,8 @@ class User(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
-    chats_as_user_one: List["Chat"] = Relationship(
-        sa_relationship_kwargs={"primaryjoin": "User.id == Chat.user_one_id"}
+    chats_as_user_one: List["Chats"] = Relationship(
+        sa_relationship_kwargs={"primaryjoin": "User.id == Chats.user_one_id"}
 
     )
 

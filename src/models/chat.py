@@ -15,7 +15,7 @@ class Chats(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     messages: List["Message"]= Relationship(
-        back_populates="chat",
+        back_populates="chats",
         sa_relationship_kwargs={"cascade": "all, delete-orphan", "order_by": "Message.created_at.desc()"}
     )
 

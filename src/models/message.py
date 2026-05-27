@@ -37,5 +37,5 @@ class Message(SQLModel, table=True):
     read_at: Optional[datetime] = Field(default=None,nullable=True)
     created_at: datetime = Field(default_factory=datetime.utcnow, index=True)
 
-    chat: Optional["Chat"] = Relationship(back_populates="messages")
+    chat: Optional["Chats"] = Relationship(back_populates="messages")
     sender: Optional["User"]= Relationship(back_populates="messages")

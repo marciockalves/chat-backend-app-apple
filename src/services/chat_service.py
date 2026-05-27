@@ -10,7 +10,7 @@ class ChatService:
         statement = select(Chats).where(
             or_(
                 and_(Chats.creator_id == user_id, Chats.recipient_id == recipient_id),
-                and_(Chats.creator_id = recipient_id, Chats.recipient_id == user_id)
+                and_(Chats.creator_id == recipient_id, Chats.recipient_id == user_id)
             )
         )
         existing_chat = session.exec(statement).first()

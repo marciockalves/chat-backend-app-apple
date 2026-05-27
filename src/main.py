@@ -13,7 +13,7 @@ from src.config.settings import settings
 from src.config.database import get_session, get_redis
 from src.config.migrator import trigger_migration
 
-from src.models import User, Chat, Message
+from src.models import User, Chats, Message
 
 from src.routers.auth_router import router as auth_router
 from src.websocket.ws_router import router as ws_router

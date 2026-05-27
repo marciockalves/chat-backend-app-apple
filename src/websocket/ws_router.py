@@ -7,7 +7,7 @@ from src.config.database import async_session_maker, get_redis
 from src.services.auth_service import AuthService
 from src.websocket.connection_manager import manager
 from src.models.message import Message, MessageType
-from src.models.chat import Chat
+from src.models.chat import Chats
 
 router = APIRouter(tags=["WebSocket"])
 
@@ -46,7 +46,7 @@ async def websocket_endpoint(
                 )
                 db.add(new_message)
             
-                query_chat = select(Chat).where(Chat.id == chat_id)
+                query_chat = select(Chats).where(Chats.id == chat_id)
                 chat_result = await db.execute(query_chat)
                 chat = chat_result.scalar_one_or_none()
                 if chat:
