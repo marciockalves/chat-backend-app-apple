@@ -27,6 +27,13 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 dotenv_path = os.path.join(base_dir, ".env")
 load_dotenv(dotenv_path=dotenv_path)
 
+chave = os.getenv("JWT_SECRET_KEY")
+
+print(f"====Chave JWT: {chave}====")
+
+if not os.getenv("JWT_SECRET_KEY"):
+    raise ValueError("ERRO CRÍTICO: A variável JWT_SECRET_KEY não foi encontrada no ambiente!")
+
 from src.config.database import get_redis 
 from src.services.migrator_service import trigger_migration
 
@@ -68,6 +75,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(ws_router)
+app.include_router(chat_router)
 
 @app.get("/")
 async def root():

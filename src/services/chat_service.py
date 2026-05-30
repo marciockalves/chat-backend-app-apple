@@ -5,27 +5,27 @@ from src.models.chat import Chats
 
 class ChatService:
     @staticmethod
-    def get_or_create_private_chat(session: Session, user_id: UUID, recipient_id: UUID) -> Chats:
+    async def get_or_create_private_chat(session: Session, user_id: UUID, recipient_id: UUID) -> Chats:
+        
+        u_id = UUID(str(user_id))
+        r_id = UUID(str(recipient_id))
         
         statement = select(Chats).where(
             or_(
-                and_(Chats.creator_id == user_id, Chats.recipient_id == recipient_id),
-                and_(Chats.creator_id == recipient_id, Chats.recipient_id == user_id)
+                and_(Chats.user_one_id == u_id, Chats.user_two_id == r_id),
+                and_(Chats.user_one_id == r_id, Chats.user_two_id == u_id)
             )
         )
-        existing_chat = session.exec(statement).first()
-
-        if existing_chat:
-            return existing_chat
-
-        
-        new_chat= Chats(
-            creator_id = user_id,
-            recipient_id=recipient_id,
-            created_at=datetime.utcnow(),
-            last_message_at=datetime.utcnow()
-        )
-        session.add(new_chat)
-        session.commit()
-        session.refresh(new_chat)
-        return new_chat
+        result = await session.exec(statement)
+        chat = result.first()
+       
+        if not chat:
+            chat = Chats(
+                user_one_id=user_id,
+                user_two_id=recipient_id
+            )
+            session.add(chat)
+            await session.commit()
+            await session.refresh(chat)
+            
+        return chat
