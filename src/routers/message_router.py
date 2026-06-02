@@ -1,13 +1,13 @@
 import traceback
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import select
-from sqlmodel.ext.asyncio.session import Asyncsession
+from sqlmodel.ext.asyncio.session import AsyncSession
 from uuid import UUID
 
 
 from src.config.database import get_session
 from src.models.message import Message
-from src.models.chat import Chat
+from src.models.chat import Chats
 from src.schemas.message import MessageCreate, MessageResponse
 from src.dependencies.auth_dependency import get_current_user
 
@@ -16,13 +16,13 @@ router = APIRouter(prefix="/messages", tags=["Mensagens"])
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=MessageResponse)
 async def send_message(
     payload: MessageCreate,
-    db: Asyncsession = Depends(get_session),
+    db: AsyncSession = Depends(get_session),
     current_user: dict = Depends(get_current_user)
 ):
     try:
         user_id = UUID(current_user["id"])
 
-        chat_query = select(Chat).where(Chat.id==payload.chat_id)
+        chat_query = select(Chats).where(Chats.id==payload.chat_id)
         chat_result = await db.execute(chat_query)
         chat = chat_result.scalar_one_none()
 

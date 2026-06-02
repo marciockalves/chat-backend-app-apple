@@ -18,7 +18,7 @@ from src.models import User, Chats, Message
 from src.routers.auth_router import router as auth_router
 from src.websocket.ws_router import router as ws_router
 from src.routers.chat_router import router as chat_router
-
+from src.routers.message_router import router as message_router
 
 from dotenv import load_dotenv
 
@@ -76,6 +76,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(ws_router)
 app.include_router(chat_router)
+app.include_router(message_router)
 
 @app.get("/")
 async def root():
