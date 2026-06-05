@@ -24,8 +24,8 @@ async def send_message(
 
         chat_query = select(Chats).where(Chats.id==payload.chat_id)
         chat_result = await db.execute(chat_query)
-        chat = chat_result.scalar_one_none()
-
+        chat = chat_result.scalar_one_or_none()
+                   
         if not chat:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
