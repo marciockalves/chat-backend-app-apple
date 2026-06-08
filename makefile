@@ -1,6 +1,7 @@
 # Variáveis reutilizáveis
 PYTHON_MODULE = src.main:app
 COMPOSE_CMD = podman compose
+VERSION = 3.13
 
 .PHONY: help up down restart ps logs backend-dev uv-sync uv-clean db-upgrade db-migrate
 
@@ -45,6 +46,12 @@ run:
 
 sync:
 	uv sync
+
+env :
+	uv python install $(VERSION)
+	uv venv --python $(VERSION)
+	source .venv/bin/activate
+
 
 clean:
 	rm -rf .venv

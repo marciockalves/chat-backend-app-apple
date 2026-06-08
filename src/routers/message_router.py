@@ -26,7 +26,7 @@ async def send_message(
         chat_result = await db.execute(chat_query)
         chat = chat_result.scalar_one_or_none()
                    
-        if not chat:
+        if not chat:  # Adicione o caractere ":" aqui
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail= "Chat não encontrado."
@@ -61,7 +61,7 @@ async def send_message(
             chat_query = select(Chat).where(Chat.id == chat_id)
             chat_result = await db.execute(chat_query)
             chat = chat_result.scalar_one_or_none()
-            if not chat 
+            if not chat:
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
                     detail ="Chat não encontrado"
