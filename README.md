@@ -112,3 +112,29 @@ Causa: O ID do chat está semanticamente correto como formato UUID, mas não exi
 Solução: Valide se o chat não foi deletado ou crie um novo através do endpoint correspondente antes de enviar mensagens para ele.
 
 
+Passo 2: Testar no Postman (Fluxo do QA) 🧪
+Agora você tem o par perfeito: uma rota para enviar e uma para ler. Vamos testar a leitura:
+
+Garanta que o seu servidor recarregou sem erros.
+
+No Postman, crie uma nova requisição do tipo GET.
+
+A URL será: http://localhost:8000/messages/COLOQUE-O-UUID-DO-CHAT-AQUI
+
+Vá na aba Authorization, mude o tipo para Bearer Token e cole o seu token de login atualizado.
+
+Clique em Send.
+
+O que deve acontecer:
+A API vai te retornar uma lista ([]) contendo todas as mensagens que você já salvou para esse chat no banco de dados, ordenadas bonitinho pelo tempo:
+
+[
+    {
+        "id": "8f3b14d2-7c39-44bb-ba52-ea1c324869fa",
+        "chat_id": "5041e5e1-dd51-4af8-8b88-7d66855d0e0d",
+        "sender_id": "3cad9271-bf1a-4d74-9844-3d969bc7491d",
+        "content": "Olá! Esta é a minha primeira mensagem enviada de forma segura através da API.",
+        "created_at": "2026-06-05T12:05:22.184000"
+    }
+]
+
